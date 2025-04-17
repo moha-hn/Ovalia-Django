@@ -1,0 +1,81 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="mohamed Hanou">
+  <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+
+  <meta name="description" content="Bijoux sur mesure et ateliers créatifs" />
+  <meta name="keywords" content="bijoux, atelier, sur mesure, création, Ovalia" />
+
+  <!-- Bootstrap CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <title>Ovalia</title>
+</head>
+
+
+{% block content %}
+
+{% endblock %}
+        
+
+        <footer class="footer-section">
+            <div class="container relative">
+            
+
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4">
+                <div class="mb-4 footer-logo-wrap">
+                    <a href="#" class="footer-logo">Ovalia<span>.</span></a>
+                </div>
+                <p class="mb-4">Ovalia est une maison de création de bijoux sur mesure qui vous invite à participer à la fabrication de vos propres pièces dans une ambiance chaleureuse et créative.</p>
+                <ul class="list-unstyled custom-social">
+                    <li><a href="https://www.instagram.com/ovaliabijoux/" target="_blank"><span class="fa fa-brands fa-instagram"></span></a></li>
+                    <li><a href="https://www.facebook.com/OvaliaBijoux/?locale=fr_FR" target="_blank"><span class="fa fa-brands fa-facebook-f" ></span></a></li>
+                </ul>
+                </div>
+
+                <div class="col-lg-8">
+                <div class="row links-wrap">
+                    <div class="col-6 col-sm-6 col-md-3">
+                    <ul class="list-unstyled">
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Ateliers</a></li>
+                        <li><a href="#">Prenez rendez-vous</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3">
+                    <ul class="list-unstyled">
+                        <li><a href="#">OR</a></li>
+                        <li><a href="#">Argent</a></li>
+                        <li><a href="#">Bracelets</a></li>
+                    </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="border-top copyright">
+                    <p style="display: flex;
+					justify-content: center; /* Horizontal */
+					align-items: center;">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved.Ovalia</p>
+
+    
+            </div>
+            </div>
+        </footer>
+        <!-- End Footer Section -->
+
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/tiny-slider.js' %}"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
+
+    </body>
+
+</html>

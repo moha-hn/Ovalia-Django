@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}	
+<body>
+  <!-- Start Header/Navigation -->
+  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+	<div class="container">
+	<a class="navbar-brand" href="index.html">Ovalia<span>.</span></a>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarsFurni">
+		<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+		<li class="nav-item active">
+			<a class="nav-link" href= {% url 'index' %}>Accueil</a>
+		</li>
+		<li><a class="nav-link" href="shop.html">Boutique</a></li>
+		<li><a class="nav-link" href="services.html">Ateliers</a></li>
+		<li><a class="nav-link" href={% url 'contact' %}>Contact</a></li>
+		</ul>
+		<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+		<li><a class="nav-link" href={% url 'login' %}><img src=	{% static 'images/user.svg' %}></a></li>
+		<li><a class="nav-link" href="cart.html"><img src={% static 'images/cart.svg' %}></a></li>
+		</ul>
+	</div>
+	</div>
+  </nav>
+
+  <!-- End Header/Navigation -->
+
+  <!-- Start Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-5">
+          <div class="intro-excerpt">
+            <h1>Bijoux sur mesure <span class="d-block">Créés avec vous</span></h1>
+            <p class="mb-4">Participez à nos ateliers créatifs pour fabriquer vos propres bijoux personnalisés. Réservez une séance ou découvrez notre collection en ligne.</p>
+            <p><a href="shop.html" class="btn btn-secondary me-2">Voir la boutique</a><a href="services.html" class="btn btn-white-outline">Réserver</a></p>
+          </div>
+        </div>
+      </div>
+	  
+    </div>
+  </div>
+  <!-- End Hero Section -->
+
+  <!-- Start Product Section -->
+  <div class="product-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+          <h2 class="mb-4 section-title">Créations uniques, faites à la main.</h2>
+          <p class="mb-4">Nos bijoux sont conçus à partir de matériaux de qualité. Chaque pièce reflète un savoir-faire artisanal et peut être personnalisée selon vos envies.</p>
+          <p><a href="shop.html" class="btn">Explorer</a></p>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+          <a class="product-item" href="cart.html">
+            <img src=	{% static 'images/BAGUE.jpg' %} class="img-fluid product-thumbnail">
+            <h3 class="product-title">Bague élégante</h3>
+            <strong class="product-price">50,00 $</strong>
+            <span class="icon-cross">
+              <img src=	{% static 'images/cross.svg' %} class="img-fluid">
+            </span>
+          </a>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+          <a class="product-item" href="cart.html">
+            <img src=	{% static 'images/COLLIER.jpg' %} class="img-fluid product-thumbnail">
+            <h3 class="product-title">Collier personnalisé</h3>
+            <strong class="product-price">78,00 $</strong>
+            <span class="icon-cross">
+              <img src={% static 'images/cross.svg' %} class="img-fluid">
+            </span>
+          </a>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+          <a class="product-item" href="cart.html">
+            <img src="images/product-3.png" class="img-fluid product-thumbnail">
+            <h3 class="product-title">Bracelet moderne</h3>
+            <strong class="product-price">43,00 $</strong>
+            <span class="icon-cross">
+              <img src={% static 'images/cross.svg' %} class="img-fluid">
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Product Section -->
+
+  <!-- Start Why Choose Us Section -->
+  <div class="why-choose-section">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-6">
+          <h2 class="section-title">Pourquoi choisir Ovalia ?</h2>
+          <p>Ovalia vous propose bien plus que des bijoux : une expérience de création unique, un service client à l'écoute, et un engagement envers l’artisanat local.</p>
+          <div class="row my-5">
+            <div class="col-6 col-md-6">
+              <div class="feature">
+                <div class="icon">
+                  <img src={% static 'images/truck.svg' %} alt="Livraison" class="imf-fluid">
+                </div>
+                <h3>Livraison rapide </h3>
+                <p>Commandez en ligne et recevez vos bijoux rapidement.</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-6">
+              <div class="feature">
+                <div class="icon">
+                  <img src={% static 'images/bag.svg' %} alt="Facile" class="imf-fluid">
+                </div>
+                <h3>Commande simplifiée</h3>
+                <p>Un site pensé pour vous permettre de réserver un atelier ou acheter un bijou en quelques clics.</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-6">
+              <div class="feature">
+                <div class="icon">
+                  <img src={% static 'images/support.svg' %} alt="Support" class="imf-fluid">
+                </div>
+                <h3>Service client</h3>
+                <p>Notre équipe est disponible en tout temps pour répondre à vos questions et vous guider.</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-6">
+              <div class="feature">
+                <div class="icon">
+                  <img src={% static 'images/return.svg' %} alt="Retour" class="imf-fluid">
+                </div>
+                <h3>Retour facile</h3>
+                <p>Si votre bijou ne convient pas, vous pouvez le retourner en toute simplicité.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="img-wrap">
+            <img src={% static 'images/IMG_8336.jpg' %} alt="Atelier Ovalia" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Why Choose Us Section -->
+
+  <!-- ... les autres sections (We Help, Blog, Testimonials, Footer) continuent avec le même principe de mise à jour -->
+
+	<!-- ... (sections précédentes inchangées) ... -->
+
+	<!-- Start We Help Section -->
+	<div class="we-help-section">
+	<div class="container">
+	  <div class="row justify-content-between">
+		<div class="col-lg-7 mb-5 mb-lg-0">
+		  <div class="imgs-grid">
+			<div class="grid grid-1"><img src={% static 'images/IMG_2785.jpg' %} alt="Ovalia Atelier"></div>
+			<div class="grid grid-2"><img src=	{% static 'images/IMG_8451.jpg' %} alt="Bijoux Personnalisés"></div>
+			<div class="grid grid-3"><img src=	{% static 'images/EA6A4DEF-28D7-445E-9CB0-006D09C280FF.jpg' %} alt="Création Collaborative"></div>
+		  </div>
+		</div>
+		<div class="col-lg-5 ps-lg-5">
+		  <h2 class="section-title mb-4">Nous vous aidons à créer vos bijoux</h2>
+		  <p>Rejoignez nos ateliers pour concevoir des pièces uniques en compagnie de nos artisans. Une activité parfaite à vivre en solo, entre amis ou en famille.</p>
+		  <ul class="list-unstyled custom-list my-4">
+			<li>Ateliers guidés dans notre studio à Montréal</li>
+			<li>Choix de matériaux variés et écoresponsables</li>
+			<li>Accompagnement personnalisé pour chaque création</li>
+			<li>Réservation rapide en ligne ou sur place</li>
+		  </ul>
+		  <p><a href="services.html" class="btn">Réserver un atelier</a></p>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- End We Help Section -->
+  
+  <!-- Start Popular Product -->
+  <div class="popular-product">
+	<div class="container">
+	  <div class="row">
+		<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+		  <div class="product-item-sm d-flex">
+			<div class="thumbnail">
+			  <img src="images/product-1.png" alt="Bague" class="img-fluid">
+			</div>
+			<div class="pt-3">
+			  <h3>Bague nordique</h3>
+			  <p>Un modèle minimaliste inspiré du design scandinave, parfait pour tous les jours.</p>
+			  <p><a href="#">Voir plus</a></p>
+			</div>
+		  </div>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+		  <div class="product-item-sm d-flex">
+			<div class="thumbnail">
+			  <img src="images/product-2.png" alt="Collier" class="img-fluid">
+			</div>
+			<div class="pt-3">
+			  <h3>Collier Aero</h3>
+			  <p>Une élégance aérienne avec une touche personnalisable pour chaque tenue.</p>
+			  <p><a href="#">Voir plus</a></p>
+			</div>
+		  </div>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+		  <div class="product-item-sm d-flex">
+			<div class="thumbnail">
+			  <img src="images/product-3.png" alt="Bracelet" class="img-fluid">
+			</div>
+			<div class="pt-3">
+			  <h3>Bracelet ergonomique</h3>
+			  <p>Conçu pour le confort et l'élégance, ce bracelet s'adapte à toutes les morphologies.</p>
+			  <p><a href="#">Voir plus</a></p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- End Popular Product -->
+  
+  <!-- Start Testimonial Slider -->
+  <div class="testimonial-section">
+	<div class="container">
+	  <div class="row">
+		<div class="col-lg-7 mx-auto text-center">
+		  <h2 class="section-title">Témoignages de nos clients</h2>
+		</div>
+	  </div>
+	  <div class="row justify-content-center">
+		<div class="col-lg-12">
+		  <div class="testimonial-slider-wrap text-center">
+			<div id="testimonial-nav">
+			  <span class="prev" data-controls="prev"><span class="fa fa-chevron-left"></span></span>
+			  <span class="next" data-controls="next"><span class="fa fa-chevron-right"></span></span>
+			</div>
+			<div class="testimonial-slider">
+			  <div class="item">
+				<div class="row justify-content-center">
+				  <div class="col-lg-8 mx-auto">
+					<div class="testimonial-block text-center">
+					  <blockquote class="mb-5">
+						<p>&ldquo;Je suis totalement satisfaite de mon passage chez Ovalia ! Je suis allée avec mes amies pour faire un bracelet permanent, et l’expérience a été tout simplement parfaite. Nous avons été super bien accueillies par la propriétaire qui est chaleureuse et attentionnée. L’ambiance était conviviale et détendue, ce qui a rendu ce moment encore plus spécial. C'était comme une petite thérapie entre amies, un souvenir unique que nous garderons longtemps. Je recommande fortement cet endroit à tous ceux qui veulent vivre une belle expérience.&rdquo;</p>
+					  </blockquote>
+					  <div class="author-info">
+						<h3 class="font-weight-bold">Joelle Grenier</h3>
+						<span class="position d-block mb-3">Cliente, Atelier Ovalia</span>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="item">
+				<div class="row justify-content-center">
+				  <div class="col-lg-8 mx-auto">
+					<div class="testimonial-block text-center">
+					  <blockquote class="mb-5">
+						<p>&ldquo;Nous sommes allés pour une activité mère/fille. Nous avons adoré notre expérience, ma fille était ravie de son bracelet. J'adore le mien également. Beaucoup de choix donc ça été plus long choisir que de le faire car nous voulions notre bracelet parfait et la propriétaire était super patiente. Je recommande fortement.&rdquo;</p>
+					  </blockquote>
+					  <div class="author-info">
+						<h3 class="font-weight-bold">Jessica Chaloux</h3>
+						<span class="position d-block mb-3">Cliente, Atelier Ovalia</span>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="item">
+				<div class="row justify-content-center">
+				  <div class="col-lg-8 mx-auto">
+					<div class="testimonial-block text-center">
+					  <blockquote class="mb-5">
+						<p>&ldquo;Cela fait plusieurs mois que j’ai mon bracelet maintenant, il a vécu avec deux petits enfants. Il résiste et est toujours aussi brillant! Je suis en amour!! Super service en plus&rdquo;</p>
+					  </blockquote>
+					  <div class="author-info">
+						<h3 class="font-weight-bold">Megane Prudhomme Miller</h3>
+						<span class="position d-block mb-3">Cliente, Atelier Ovalia</span>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <!-- Additional items can stay as they are or be cloned if needed -->
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- End Testimonial Slider -->
+</body>
+{% endblock %}

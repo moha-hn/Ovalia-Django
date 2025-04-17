@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Devenir membre</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{% static 'fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
+		<link href="{% static 'css/style2.css' %}" rel="stylesheet">
+	</head>
+
+	<body>
+
+		<div class="wrapper" style="background-image: url('{% static  'images/bg-registration-form-1.jpg' %}');">
+			<div class="inner">
+				<div class="image-holder">
+					<img src={% static "images/necklace.jpg" %} alt="">
+				</div>
+				<form action="">
+					<h3>Se connecter a votre espace membre</h3>
+					<div class="form-wrapper">
+						<input type="text" placeholder="Addresse Email " class="form-control">
+						<i class="zmdi zmdi-email"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="password" placeholder="Mot de passe" class="form-control">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					<button>Se Connecter
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+					<br>
+					<a href={% url 'register' %} style="display: flex;
+					justify-content: center; /* Horizontal */
+					align-items: center; ">Vous n'avez pas un compte ? devenir membre</a>
+                    <p style="display: flex;
+					justify-content: center; /* Horizontal */
+					align-items: center;">Des conditions s'appliquent</p>
+				</form>
+			</div>
+		</div>
+		
+	</body>
+</html>
