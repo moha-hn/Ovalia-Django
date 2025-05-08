@@ -15,6 +15,23 @@ body {
   font-size: 13px;
   margin: 0;
 }
+.btn-retour {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #6c757d;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-retour:hover {
+  background-color: #5a6268;
+}
 
 input, textarea, select, button {
   font-family: "Poppins-Regular";

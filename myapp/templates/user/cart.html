@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="fr">
+
+{% block content %}	
+<body>
+  <!-- Start Header/Navigation -->
+  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Ovalia navigation bar">
+    <div class="container">
+      <a class="navbar-brand" href="/">Ovalia<span>.</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsOvalia" aria-controls="navbarsOvalia" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsOvalia">
+        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">Accueil</a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li>
+            <a class="nav-link" href="{% url 'member' %}">Membre</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'shop' %}">Boutique</a>
+          </li>
+          <li>
+            <a class="nav-link" href="">Ateliers</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{% url 'contact' %}">FAQ</a>
+          </li>
+        </ul>
+        <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+          {% if request.user.is_authenticated %}
+            <li>
+              <form method="POST" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-logout" ><a class="nav-link" >Logout</a></button>
+              </form>
+            </li>
+          {% else %}
+          <li>
+            <a class="nav-link" href="{% url 'login' %}">
+            <img src="{% static 'images/user.svg' %}" alt="S'inscrire">
+            </a>
+          </li>
+          {% endif %}
+        <li><a class="nav-link active" href="{% url 'cart' %}"><img src={% static 'images/cart.svg' %}></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Header/Navigation -->
+
+  <!-- Start Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-5">
+          <div class="intro-excerpt">
+            <h1>Votre Panier</h1>
+            <p class="mb-4">Vérifiez vos articles avant de finaliser votre commande.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Hero Section -->
+
+  <!-- Start Cart Section -->
+  <div class="untree_co-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="cart-section mb-5">
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="h3 mb-4 text-black">Articles dans votre panier</h2>
+              </div>
+              <div class="col-md-12">
+                {% if cart_items %}
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="product-thumbnail">Image</th>
+                        <th class="product-name">Produit</th>
+                        <th class="product-type">Type</th>
+                        <th class="product-price">Prix</th>
+                        <th class="product-quantity">Quantité</th>
+                        <th class="product-total">Total</th>
+                        <th class="product-remove">Supprimer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in cart_items %}
+                      <tr>
+                        <td class="product-thumbnail">
+                          {% if item.product.image %}
+                          <img src="{{ item.product.image.url }}" alt="Image" class="img-fluid" style="max-width: 100px;">
+                          {% else %}
+                          <img src="/static/images/product-placeholder.jpg" alt="Image" class="img-fluid" style="max-width: 100px;">
+                          {% endif %}
+                        </td>
+                        <td class="product-name">
+                          <h2 class="h5 text-black">{{ item.product.name }}</h2>
+                        </td>
+                        <td class="product-type">
+                          {{ item.wear_type }}
+                        </td>
+                        <td class="product-price">
+                          {% if item.wear_type == 'bracelet' %}
+                          {{ item.product.poignee }} $
+                          {% elif item.wear_type == 'collier' %}
+                          {{ item.product.cou }} $
+                          {% elif item.wear_type == 'cheville' %}
+                          {{ item.product.cheville }} $
+                          {% endif %}
+                        </td>
+                        <td class="product-quantity">
+                          <div class="input-group mb-3" style="max-width: 120px;">
+                            <form method="POST" action="{% url 'update_cart_quantity' item.id %}" class="d-flex">
+                              {% csrf_token %}
+                              <div class="input-group-prepend">
+                                <button class="btn btn-outline-black decrease" type="submit" name="action" value="decrease">&minus;</button>
+                              </div>
+                              <input type="text" class="form-control text-center quantity-input" value="{{ item.quantity }}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" name="quantity" readonly>
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-black increase" type="submit" name="action" value="increase">&plus;</button>
+                              </div>
+                            </form>
+                          </div>
+                        </td>
+                        <td class="product-total">
+                          {{ item.total_price }} $
+                        </td>
+                        <td>
+                          <form method="POST" action="{% url 'remove_from_cart' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                              <span class="icon-trash"></span>
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                  Votre panier est vide. <a href="{% url 'shop' %}" class="text-decoration-underline">Continuez vos achats</a>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          {% if cart_items %}
+          <div class="row mb-5">
+            <div class="col-md-6">
+              <div class="row mb-5">
+                <div class="col-md-6 mb-3 mb-md-0">
+                  <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuer mes achats</a>
+                </div>
+                <div class="col-md-6">
+                  <form method="POST" action="{% url 'clear_cart' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger btn-sm btn-block">Vider le panier</button>
+                  </form>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <form method="POST" action="{% url 'apply_coupon' %}">
+                      {% csrf_token %}
+                      <label class="text-black h4" for="coupon">Code promo</label>
+                      <div class="input-group w-75">
+                        <input type="text" class="form-control" id="coupon" name="coupon_code" placeholder="Entrez votre code promo">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary btn-sm" type="submit">Appliquer</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 pl-5">
+              <div class="row justify-content-end">
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-12 text-right border-bottom mb-3">
+                      <h3 class="text-black h4 text-uppercase">Totaux</h3>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <span class="text-black">Sous-total</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">{{ cart_subtotal }} $</strong>
+                    </div>
+                  </div>
+                  {% if coupon_discount %}
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <span class="text-black">Réduction</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">- {{ coupon_discount }} $</strong>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <div class="row mb-5">
+                    <div class="col-md-6">
+                      <span class="text-black">Total</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">{{ cart_total }} $</strong>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <a href="{% url 'checkout' %}" class="btn btn-primary btn-lg py-3 btn-block">Procéder au paiement</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Cart Section -->
+
+  <!-- Start Related Products Section -->
+  {% if suggested_products %}
+  <div class="untree_co-section product-section">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-12">
+          <h2 class="section-title">Vous pourriez aussi aimer</h2>
+        </div>
+      </div>
+      <div class="row">
+        {% for product in suggested_products %}
+        <div class="col-12 col-md-6 col-lg-3 mb-5">
+          <a class="product-item" href="">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="img-fluid product-thumbnail">
+            {% else %}
+            <img src="/static/images/product-placeholder.jpg" class="img-fluid product-thumbnail">
+            {% endif %}
+            <h3 class="product-title">{{ product.name }}</h3>
+            <div class="product-info mb-2">
+              <span class="badge bg-light text-dark">{{ product.materiaux }}</span>
+            </div>
+            <p class="product-price">À partir de {{ product.poignee }} $</p>
+            <span class="icon-cross">
+              <img src="/static/images/cross.svg" class="img-fluid">
+            </span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <!-- End Related Products Section -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add any cart specific JavaScript here
+      // For example, quantity update without page refresh
+    });
+  </script>
+  
+{% endblock %}
+</body>
+</html>

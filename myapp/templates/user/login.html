@@ -20,27 +20,30 @@
 				<div class="image-holder">
 					<img src={% static "images/necklace.jpg" %} alt="">
 				</div>
-				<form action="">
-					<h3>Se connecter a votre espace membre</h3>
+				<form method="POST" action="">
+					{% csrf_token %}
+					<h3>Se connecter à votre espace membre</h3>
 					<div class="form-wrapper">
-						<input type="text" placeholder="Addresse Email " class="form-control">
-						<i class="zmdi zmdi-email"></i>
+					  <input type="text" name="username" value="{{ form.username.value|default_if_none:'' }}" placeholder="Nom dutilisateur" class="form-control">
+					  <i class="zmdi zmdi-user"></i>
 					</div>
 					<div class="form-wrapper">
-						<input type="password" placeholder="Mot de passe" class="form-control">
-						<i class="zmdi zmdi-lock"></i>
+					  <input type="password" name="password" placeholder="Mot de passe" class="form-control">
+					  <i class="zmdi zmdi-lock"></i>
 					</div>
-					<button>Se Connecter
-						<i class="zmdi zmdi-arrow-right"></i>
+					<button type="submit">Se connecter
+					  <i class="zmdi zmdi-arrow-right"></i>
 					</button>
 					<br>
-					<a href={% url 'register' %} style="display: flex;
-					justify-content: center; /* Horizontal */
-					align-items: center; ">Vous n'avez pas un compte ? devenir membre</a>
-                    <p style="display: flex;
-					justify-content: center; /* Horizontal */
-					align-items: center;">Des conditions s'appliquent</p>
-				</form>
+					<a href="{% url 'register' %}" style="display: flex; justify-content: center; align-items: center;">
+					  Vous n'avez pas de compte ? Devenir membre
+					</a>
+					<p style="display: flex; justify-content: center; align-items: center;">Des conditions s'appliquent</p>
+					{% if error %}
+					  <p style="color: red;">{{ error }}</p>
+					{% endif %}
+				  </form>
+				  
 			</div>
 		</div>
 		

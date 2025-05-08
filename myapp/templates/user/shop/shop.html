@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="fr">
+
+{% block content %}	
+<body>
+  <!-- Start Header/Navigation -->
+  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Ovalia navigation bar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><img class="logo" src={% static 'images/big_logo.png' %} alt="Ovalia Atelier"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsOvalia" aria-controls="navbarsOvalia" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsOvalia">
+        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">Accueil</a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li>
+            <a class="nav-link" href="{% url 'member' %}">Membre</a>
+          </li>
+          {% endif %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'shop' %}">Boutique</a>
+          </li>
+          <li>
+            <a class="nav-link" href="">Ateliers</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{% url 'contact' %}">FAQ</a>
+          </li>
+        </ul>
+        <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+          {% if request.user.is_authenticated %}
+          
+            <li>
+              <form method="POST" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-logout" ><a class="nav-link" >Logout</a></button>
+              </form>
+            </li>
+          {% else %}
+          <li>
+            <a class="nav-link" href="{% url 'login' %}">
+            <img src="{% static 'images/user.svg' %}" alt="S'inscrire">
+            </a>
+          </li>
+          {% endif %}
+        <li><a class="nav-link" href="{% url 'cart' %}"><img src={% static 'images/cart.svg' %}></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Header/Navigation -->
+
+  <!-- Start Hero Section -->
+  
+  <!-- End Hero Section -->
+
+  <!-- Start Product Section -->
+  <div class="untree_co-section product-section">
+    <div class="container">
+      
+      <h4 class="product-title">bijoux permanents – bracelets & prix</h4>
+      <p "product-price" >Chez Ovalia, nos bijoux permanents sont bien plus que de simples accessoires, ce sont des symboles durables de ton style, de tes souvenirs et de tes liens précieux. Chaque bracelet est soudé directement à ton poignet grâce à un flash rapide et indolore, pour un bijou que tu ne perdras jamais.
+
+        Nous proposons des chaînes de qualité, sélectionnées pour leur beauté et leur résistance au quotidien : l’or massif 14k, élégant et durable, idéal pour un port quotidien, l’or massif 10k, solide et accessible, parfait pour la vie de tous les jours, l’or rempli (gold filled 14k), une belle alternative résistante à l’or massif qui conserve son éclat, et l’argent sterling (.925), raffiné et intemporel, qui dure avec un bon entretien.
+        
+        Fais de ton bracelet permanent une déclaration personnelle qui te suit partout.</p>
+      <div class="row">
+        <!-- Products Grid -->
+        <div class="col-md-12 col-lg-12">
+          <div class="row">
+              <div class="col-12 col-md-6 col-lg-4 mb-5  product-card" data-material="{{ product.materiaux }}" data-name="{{ product.name|lower }}">
+                <div class="product-item" href="">
+                  <img src={% static 'images/back.jpg' %} class="img-card">
+                  <h3 class="product-title">Or massif 14k</h3>
+                  <br>
+                  <p><a href="{% url 'or14k' %}" class="btn-card">Explorer</a></p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 mb-5  product-card" data-material="{{ product.materiaux }}" data-name="{{ product.name|lower }}">
+                <div class="product-item" href="">
+                  <img src={% static 'images/back.jpg' %} class="img-card">
+                  <h3 class="product-title">Or massif 10k</h3>
+                  <br>
+                  <p><a href="{% url 'or10k' %}" class="btn-card">Explorer</a></p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 mb-5  product-card" data-material="{{ product.materiaux }}" data-name="{{ product.name|lower }}">
+                <div class="product-item" href="">
+                  <img src={% static 'images/back.jpg' %} class="img-card">
+                  <h3 class="product-title">Or rempli</h3>
+                  <br>
+                  <p><a href="{% url 'orrempli' %}" class="btn-card">Explorer</a></p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 mb-5  product-card" data-material="{{ product.materiaux }}" data-name="{{ product.name|lower }}">
+                <div class="product-item" href="">
+                  <img src={% static 'images/back.jpg' %} class="img-card">
+                  <h3 class="product-title">Argent sterling</h3>
+                  <br>
+                  <p><a href="{% url 'argent' %}" class="btn-card">Explorer</a></p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 mb-5  product-card" data-material="{{ product.materiaux }}" data-name="{{ product.name|lower }}">
+                <div class="product-item" href="">
+                  <img src={% static 'images/back.jpg' %} class="img-card">
+                  <h3 class="product-title">Charms</h3>
+                  <br>
+                  <p><a href="{% url 'charms' %}" class="btn-card">Explorer</a></p>
+                </div>
+              </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Product Section -->
+
+
+  <!-- Start Workshop Promo Section -->
+  <!-- End Workshop Promo Section -->
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.material-filter');
+        const products = document.querySelectorAll('.product-card');
+        const nameInput = document.getElementById('name-filter');
+      
+        function applyFilters() {
+          const selectedMaterials = Array.from(checkboxes)
+                                         .filter(c => c.checked)
+                                         .map(c => c.value);
+      
+          const nameFilter = nameInput.value.trim().toLowerCase();
+      
+          products.forEach(product => {
+            const material = product.dataset.material;
+            const name = product.dataset.name;
+      
+            const matchesMaterial = selectedMaterials.length === 0 || selectedMaterials.includes(material);
+            const matchesName = name.includes(nameFilter);
+      
+            if (matchesMaterial && matchesName) {
+              product.style.display = '';
+            } else {
+              product.style.display = 'none';
+            }
+          });
+        }
+      
+        checkboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+        nameInput.addEventListener('input', applyFilters);
+      });
+      </script>
+      
+{% endblock %}

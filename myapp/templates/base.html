@@ -15,6 +15,10 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet">
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
   <title>Ovalia</title>
 </head>
 
@@ -29,18 +33,21 @@
             
 
             <div class="row g-5 mb-5">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                 <div class="mb-4 footer-logo-wrap">
-                    <a href="#" class="footer-logo">Ovalia<span>.</span></a>
+                    <a class="navbar-brand" href="index.html"><img class="logo" src={% static 'images/logo.png' %} alt="Ovalia Atelier"></a>
                 </div>
-                <p class="mb-4">Ovalia est une maison de création de bijoux sur mesure qui vous invite à participer à la fabrication de vos propres pièces dans une ambiance chaleureuse et créative.</p>
-                <ul class="list-unstyled custom-social">
-                    <li><a href="https://www.instagram.com/ovaliabijoux/" target="_blank"><span class="fa fa-brands fa-instagram"></span></a></li>
-                    <li><a href="https://www.facebook.com/OvaliaBijoux/?locale=fr_FR" target="_blank"><span class="fa fa-brands fa-facebook-f" ></span></a></li>
-                </ul>
+        
                 </div>
-
-                <div class="col-lg-8">
+                <div class="col-lg-4">
+                    <br><br>
+                    <p class="mb-4">Ovalia est une maison de création de bijoux sur mesure qui vous invite à participer à la fabrication de vos propres pièces dans une ambiance chaleureuse et créative.</p>
+                    <ul class="list-unstyled custom-social">
+                        <li><a href="https://www.instagram.com/ovaliabijoux/" target="_blank"><span class="fa fa-brands fa-instagram"></span></a></li>
+                        <li><a href="https://www.facebook.com/OvaliaBijoux/?locale=fr_FR" target="_blank"><span class="fa fa-brands fa-facebook-f" ></span></a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
                 <div class="row links-wrap">
                     <div class="col-6 col-sm-6 col-md-3">
                     <ul class="list-unstyled">
@@ -56,7 +63,6 @@
                         <li><a href="#">Argent</a></li>
                         <li><a href="#">Bracelets</a></li>
                     </ul>
-                    </div>
                 </div>
                 </div>
             </div>
@@ -64,7 +70,8 @@
             <div class="border-top copyright">
                     <p style="display: flex;
 					justify-content: center; /* Horizontal */
-					align-items: center;">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved.Ovalia</p>
+					align-items: center;
+                    margin-bottom:0;">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved.Ovalia</p>
 
     
             </div>
@@ -75,6 +82,11 @@
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'js/tiny-slider.js' %}"></script>
         <script src="{% static 'js/custom.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+
 
     </body>
 

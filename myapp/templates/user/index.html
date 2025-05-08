@@ -3,28 +3,47 @@
 {% block content %}	
 <body>
   <!-- Start Header/Navigation -->
-  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
-	<div class="container">
-	<a class="navbar-brand" href="index.html">Ovalia<span>.</span></a>
-	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarsFurni">
-		<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-		<li class="nav-item active">
-			<a class="nav-link" href= {% url 'index' %}>Accueil</a>
-		</li>
-		<li><a class="nav-link" href="shop.html">Boutique</a></li>
-		<li><a class="nav-link" href="services.html">Ateliers</a></li>
-		<li><a class="nav-link" href={% url 'contact' %}>Contact</a></li>
-		</ul>
-		<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-		<li><a class="nav-link" href={% url 'login' %}><img src=	{% static 'images/user.svg' %}></a></li>
-		<li><a class="nav-link" href="cart.html"><img src={% static 'images/cart.svg' %}></a></li>
-		</ul>
-	</div>
-	</div>
-  </nav>
+	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+		<div class="container">
+		<a class="navbar-brand" href="index.html"><img class="logo" src={% static 'images/big_logo.png' %} alt="Ovalia Atelier"></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarsFurni">
+			<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+				<li class="nav-item active">
+					<a class="nav-link" href= {% url 'index' %}>Accueil</a>
+				</li>
+				{% if request.user.is_authenticated %} <!-- Only displaying this for the logged users(members for this project) -->
+				<li>
+					<a class="nav-link" href="{% url 'member' %}">Membre</a>
+				</li>
+				{% endif %}
+				<li><a class="nav-link" href={% url 'shop' %}>Boutique</a></li>
+				<li><a class="nav-link" href="services.html">Ateliers</a></li>
+				<li><a class="nav-link" href={% url 'contact' %}>FAQ</a></li>
+			</ul>
+			<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+				{% if request.user.is_authenticated %}
+				
+					<li>
+					  <form method="POST" action="{% url 'logout' %}">
+						{% csrf_token %}
+						<button type="submit" class="btn-logout" ><a class="nav-link" >Logout</a></button>
+					  </form>
+					</li>
+			  {% else %}
+				<li>
+				  <a class="nav-link" href="{% url 'login' %}">
+					<img src="{% static 'images/user.svg' %}" alt="S'inscrire">
+				  </a>
+				</li>
+			  {% endif %}
+			<li><a class="nav-link" href="{% url 'cart' %}"><img src={% static 'images/cart.svg' %}></a></li>
+			</ul>
+		</div>
+		</div>
+	</nav>
 
   <!-- End Header/Navigation -->
 
@@ -52,38 +71,40 @@
         <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
           <h2 class="mb-4 section-title">Créations uniques, faites à la main.</h2>
           <p class="mb-4">Nos bijoux sont conçus à partir de matériaux de qualité. Chaque pièce reflète un savoir-faire artisanal et peut être personnalisée selon vos envies.</p>
-          <p><a href="shop.html" class="btn">Explorer</a></p>
+          <p><a href="" class="btn">Explorer</a></p>
         </div>
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-          <a class="product-item" href="cart.html">
-            <img src=	{% static 'images/BAGUE.jpg' %} class="img-fluid product-thumbnail">
-            <h3 class="product-title">Bague élégante</h3>
-            <strong class="product-price">50,00 $</strong>
-            <span class="icon-cross">
-              <img src=	{% static 'images/cross.svg' %} class="img-fluid">
-            </span>
-          </a>
-        </div>
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-          <a class="product-item" href="cart.html">
-            <img src=	{% static 'images/COLLIER.jpg' %} class="img-fluid product-thumbnail">
-            <h3 class="product-title">Collier personnalisé</h3>
-            <strong class="product-price">78,00 $</strong>
-            <span class="icon-cross">
-              <img src={% static 'images/cross.svg' %} class="img-fluid">
-            </span>
-          </a>
-        </div>
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-          <a class="product-item" href="cart.html">
-            <img src="images/product-3.png" class="img-fluid product-thumbnail">
-            <h3 class="product-title">Bracelet moderne</h3>
-            <strong class="product-price">43,00 $</strong>
-            <span class="icon-cross">
-              <img src={% static 'images/cross.svg' %} class="img-fluid">
-            </span>
-          </a>
-        </div>
+		<div class="row">
+			<!-- Products Grid -->
+			<div class="col-md-12 col-lg-12">
+			  <div class="row">
+				{% for product in products %}
+				{% if product.available %}
+				  <div class="col-12 col-md-6 col-lg-4 mb-5  product-card" data-material="{{ product.materiaux }}" data-name="{{ product.name|lower }}">
+					<a class="product-item" href="">
+					  {% if product.image %}
+					  <img src="{{ product.image.url }}" class="img-card">
+					  {% else %}
+					  <img src="/static/images/product-placeholder.jpg" class="img-fluid product-thumbnail">
+					  {% endif %}
+					  <h3 class="product-title">{{ product.name }}</h3>
+					  <p >Bracelet No. {{ product.numero }}  </p>
+					  <p >Comme bracelet - {{ product.poignee }} $ </p>
+					  <p >Au cou - {{ product.cou }} $</p>
+					  <p >à la cheville - {{ product.cheville }} $ </p>
+					</a>
+				  </div>
+				{% endif %}
+				{% empty %}
+				<div class="col-12">
+				  <div class="alert alert-info">
+					Aucun produit disponible pour le moment.
+				  </div>
+				</div>
+				{% endfor %}
+			  </div>
+			  
+			</div>
+		  </div>	
       </div>
     </div>
   </div>
@@ -164,7 +185,7 @@
 		  <h2 class="section-title mb-4">Nous vous aidons à créer vos bijoux</h2>
 		  <p>Rejoignez nos ateliers pour concevoir des pièces uniques en compagnie de nos artisans. Une activité parfaite à vivre en solo, entre amis ou en famille.</p>
 		  <ul class="list-unstyled custom-list my-4">
-			<li>Ateliers guidés dans notre studio à Montréal</li>
+			<li>Ateliers guidés dans notre studio à Sainte-Therese</li>
 			<li>Choix de matériaux variés et écoresponsables</li>
 			<li>Accompagnement personnalisé pour chaque création</li>
 			<li>Réservation rapide en ligne ou sur place</li>
@@ -176,50 +197,7 @@
   </div>
   <!-- End We Help Section -->
   
-  <!-- Start Popular Product -->
-  <div class="popular-product">
-	<div class="container">
-	  <div class="row">
-		<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-		  <div class="product-item-sm d-flex">
-			<div class="thumbnail">
-			  <img src="images/product-1.png" alt="Bague" class="img-fluid">
-			</div>
-			<div class="pt-3">
-			  <h3>Bague nordique</h3>
-			  <p>Un modèle minimaliste inspiré du design scandinave, parfait pour tous les jours.</p>
-			  <p><a href="#">Voir plus</a></p>
-			</div>
-		  </div>
-		</div>
-		<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-		  <div class="product-item-sm d-flex">
-			<div class="thumbnail">
-			  <img src="images/product-2.png" alt="Collier" class="img-fluid">
-			</div>
-			<div class="pt-3">
-			  <h3>Collier Aero</h3>
-			  <p>Une élégance aérienne avec une touche personnalisable pour chaque tenue.</p>
-			  <p><a href="#">Voir plus</a></p>
-			</div>
-		  </div>
-		</div>
-		<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-		  <div class="product-item-sm d-flex">
-			<div class="thumbnail">
-			  <img src="images/product-3.png" alt="Bracelet" class="img-fluid">
-			</div>
-			<div class="pt-3">
-			  <h3>Bracelet ergonomique</h3>
-			  <p>Conçu pour le confort et l'élégance, ce bracelet s'adapte à toutes les morphologies.</p>
-			  <p><a href="#">Voir plus</a></p>
-			</div>
-		  </div>
-		</div>
-	  </div>
-	</div>
-  </div>
-  <!-- End Popular Product -->
+
   
   <!-- Start Testimonial Slider -->
   <div class="testimonial-section">
