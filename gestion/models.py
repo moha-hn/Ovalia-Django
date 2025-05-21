@@ -28,7 +28,8 @@ class Product(models.Model):
     ('Or massif 14k', 'Or massif 14k'),
     ('Or massif 10k', 'Or massif 10k'),
     ('Or rempli', 'Or rempli'),
-    ('Argent sterling', 'Argent sterling'),]
+    ('Argent sterling', 'Argent sterling'),
+    ('Charms', 'Charms'),]
     materiaux=models.CharField(choices=materiaux_choices, max_length=50,default='Non defini')
     numero=models.IntegerField(null=True,unique=True)
     def __str__(self):

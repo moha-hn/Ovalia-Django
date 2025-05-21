@@ -818,3 +818,53 @@ textarea {
     .container {
       padding: 2px 16px;
     }
+
+/* map container */
+.map-container {
+  position: relative;
+  padding-bottom: 28.12%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin: 50px auto;
+  max-width: 100%;
+}
+
+.map-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.contact-section {
+  text-align: center;
+  margin-top: 30px;
+  font-family: Arial, sans-serif;
+}
+
+.contact-section p {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #947459;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-button:hover {
+  background-color: #B59F8A;
+  transform: scale(1.05);
+}

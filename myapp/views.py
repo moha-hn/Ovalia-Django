@@ -17,6 +17,15 @@ def index(request):
 def faq(request):
     return render(request,"user/faq.html")
 
+def service(request):
+    return render(request,"user/service.html")
+
+def event(request):
+    return render(request,"user/event.html")
+
+def contact(request):
+    return render(request,"user/contact.html")
+
 def cart(request):
     return render(request,"user/cart.html")
 
