@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <nav class="custom-navbar navbar navbar-expand-md bg-dark text-white shadow">
+    <div class="container mx-auto px-4">
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img class="h-10" src="{% static 'images/big_logo_black.png' %}" alt="Ovalia Atelier">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsFurni">
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          <li><a class="nav-link px-2 text-white" href="{% url 'index' %}">Accueil</a></li>
+          {% if request.user.is_authenticated %}
+            <li><a class="nav-link px-2 text-white" href="{% url 'member' %}">Membre</a></li>
+          {% endif %}
+          <li><a class="nav-link px-2 text-white" href="{% url 'boutique' %}">Boutique</a></li>
+          <li><a class="nav-link px-2 text-white" href="{% url 'event' %}">Evenement</a></li>
+          <li><a class="nav-link px-2 text-white" href="{% url 'faq' %}">FAQ</a></li>
+          <li><a class="nav-link px-2 text-white" href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-md-0 ms-5">
+          {% if request.user.is_authenticated %}
+            <li>
+              <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="nav-link text-white">Logout</button>
+              </form>
+            </li>
+          {% else %}
+            <li><a class="nav-link" href="{% url 'login' %}"><img src="{% static 'images/user.svg' %}" alt="S'inscrire"></a></li>
+          {% endif %}
+          <li><a class="nav-link" href="{% url 'cart' %}"><img src="{% static 'images/cart.svg' %}" alt="Cart"></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="bg-white p-6 rounded shadow">
+      {% if sale.image %}
+        <img src="{{ sale.image.url }}" class="w-full h-64 object-cover mb-4">
+      {% else %}
+        <img src="{% static 'images/product-placeholder.jpg' %}" class="w-full h-64 object-cover mb-4">
+      {% endif %}
+      <h1 class="text-2xl faont-bold">{{ sale.name }}</h1>
+      <p class="text-gray-600">{{ sale.description }}</p>
+      <p class="text-lg font-bold">Numéro: {{ sale.numero }}</p>
+      <p class="text-lg">Matériau: {{ sale.materiaux }}</p>
+      <p class="text-lg">Catégorie: {{ sale.get_category_display }}</p>
+      {% if request.user.is_authenticated %}
+        <div class="mt-4">
+          <a href="{% url 'add_to_cart' sale.id sale.category %}" class="inline-block bg-green-500 text-white px-4 py-2 rounded">Ajouter au panier ({{ sale.get_category_display }})</a>
+        </div>
+      {% else %}
+        <p class="mt-4 text-red-500">Veuillez <a href="{% url 'login' %}" class="underline">vous connecter</a> pour ajouter au panier.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
