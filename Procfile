@@ -1,1 +1,1 @@
-web: gunicorn Ovalia-Django-Main.wsgi
+web: gunicorn ovalia2.wsgi
