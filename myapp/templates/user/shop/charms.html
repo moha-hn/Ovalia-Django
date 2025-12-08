@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  .image-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 80px 0; /* top & bottom spacing */
+  }
+
+  .image-wrapper img {
+    max-width: 100%;
+    height: auto; /* KEEP original ratio */
+    display: block;
+  }
+</style>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container">
+
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img class="logo" src="{% static 'images/big_logo_black.png' %}" alt="Ovalia Atelier">
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarsFurni"
+      aria-controls="navbarsFurni"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsFurni">
+      <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Accueil</a>
+        </li>
+
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'member' %}">Membre</a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'shop' %}">Bracelet</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'event' %}">Événement</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+<!-- =============== END NAVBAR =============== -->
+
+
+<!-- ================= HERO IMAGE ================= -->
+<div class="image-wrapper">
+  <img src="{% static 'images/charms.jpeg' %}" alt="Charms">
+</div>
+<!-- =============== END HERO IMAGE =============== -->
+
+{% endblock %}

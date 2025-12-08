@@ -33,6 +33,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
 class Sales(models.Model):
     CATEGORY_CHOICES = [
         ("Collier", "Collier"),
@@ -64,14 +65,3 @@ class Sales(models.Model):
 
     def __str__(self):
         return self.name
-
-class CartItem(models.Model):
-    sale = models.ForeignKey(Sales, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-
-
-class Order(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    stripe_payment_id = models.CharField(max_length=100, blank=True)
-    status = models.CharField(max_length=20, default='Pending')

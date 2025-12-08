@@ -1,53 +1,27 @@
 import os
 from pathlib import Path
+
 import dj_database_url
+
+# ======================================================
+# BASE DIRECTORY
+# ======================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # ======================================================
-# SECRET KEY & DEBUG
+# SECURITY
 # ======================================================
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-dev-only"
+)
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["*"]  # Railway injects host automatically
-
-
-# ======================================================
-# DATABASE CONFIGURATION
-# ======================================================
-
-# Local: SQLite
-# Production (Railway): PostgreSQL via DATABASE_URL
-
-DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-        ssl_require=False,   # Railway does not force SSL for Postgres
-    )
-}
-
-
-# ======================================================
-# STATIC FILES (WhiteNoise for Railway)
-# ======================================================
-
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",   # MUST be right after SecurityMiddleware
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-]
+ALLOWED_HOSTS = ["*"]
 
 
 # ======================================================
@@ -62,7 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Your apps
+    # Local apps
     "myapp",
     "gestion",
 
@@ -72,14 +46,31 @@ INSTALLED_APPS = [
 
 
 # ======================================================
-# AUTH USER MODEL
+# MIDDLEWARE
 # ======================================================
 
-AUTH_USER_MODEL = "gestion.User"
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
 
 
 # ======================================================
-# TEMPLATE CONFIGURATION
+# URL / WSGI (REQUIRED)
+# ======================================================
+
+ROOT_URLCONF = "ovalia2.urls"
+WSGI_APPLICATION = "ovalia2.wsgi.application"
+
+
+# ======================================================
+# TEMPLATES
 # ======================================================
 
 TEMPLATES = [
@@ -98,12 +89,24 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "ovalia2.wsgi.application"
+
+# ======================================================
+# DATABASE
+# ======================================================
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
+}
 
 
 # ======================================================
-# PASSWORD VALIDATION
+# AUTH
 # ======================================================
+
+AUTH_USER_MODEL = "gestion.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -118,9 +121,25 @@ AUTH_PASSWORD_VALIDATORS = [
 # ======================================================
 
 LANGUAGE_CODE = "en-us"
+
 TIME_ZONE = "UTC"
+
 USE_I18N = True
 USE_TZ = True
+
+
+# ======================================================
+# STATIC FILES
+# ======================================================
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    }
+}
 
 
 # ======================================================
@@ -131,12 +150,33 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # ======================================================
-# STRIPE (environment variable based)
+# STRIPE
 # ======================================================
 
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 
-# If deployed, replace localhost URLs with Railway URL
-PAYMENT_SUCCESS_URL = os.environ.get("PAYMENT_SUCCESS_URL", "http://localhost:8000/boutique/success/")
-PAYMENT_CANCEL_URL = os.environ.get("PAYMENT_CANCEL_URL", "http://localhost:8000/boutique/cancel/")
+PAYMENT_SUCCESS_URL = os.environ.get(
+    "PAYMENT_SUCCESS_URL",
+    "http://localhost:8000/boutique/success/",
+)
+
+PAYMENT_CANCEL_URL = os.environ.get(
+    "PAYMENT_CANCEL_URL",
+    "http://localhost:8000/boutique/cancel/",
+)
+
+
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
