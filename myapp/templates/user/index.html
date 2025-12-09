@@ -220,24 +220,6 @@
           <li><a class="nav-link" href={% url 'faq' %}>FAQ</a></li>
           <li><a class="nav-link" href={% url 'contact' %}>Contact</a></li>
         </ul>
-        <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-          {% if request.user.is_authenticated %}
-          
-            <li>
-              <form method="POST" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <button type="submit" class="btn-logout" ><a class="nav-link" >Logout</a></button>
-              </form>
-            </li>
-          {% else %}
-          <li>
-            <a class="nav-link" href="{% url 'login' %}">
-            <img src="{% static 'images/user.svg' %}" alt="S'inscrire">
-            </a>
-          </li>
-          {% endif %}
-        <li><a class="nav-link" href=""><img src={% static 'images/cart.svg' %}></a></li>
-        </ul>
       </div>
       </div>
     </nav>
