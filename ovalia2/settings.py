@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     # Local apps
     "myapp",
     "gestion",
-
+    "store",
     # Third-party apps
     "django_filters",
 ]
