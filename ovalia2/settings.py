@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -161,7 +162,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # stripe settings
-STRIPE_PUBLISHABLE_KEY = 'your-stripe-publishable-key'
-STRIPE_SECRET_KEY = 'your-stripe-secret-key'
-PAYMENT_SUCCESS_URL = 'http://localhost:8000/boutique/success/'
-PAYMENT_CANCEL_URL = 'http://localhost:8000/boutique/cancel/'
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+PAYMENT_SUCCESS_URL = os.getenv('PAYMENT_SUCCESS_URL', 'http://localhost:8000/boutique/checkout/success/')
+PAYMENT_CANCEL_URL = os.getenv('PAYMENT_CANCEL_URL', 'http://localhost:8000/boutique/checkout/cancel/')
